@@ -17,6 +17,17 @@ public class GameWindow extends JFrame {
 
         this.add(this.gameCanvas);
 
+        this.event();
+
+        this.setVisible(true);
+    }
+
+    private void event() {
+        this.keyboardEvent();
+        this.windowEvent();
+    }
+
+    private void keyboardEvent() {
         this.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -39,16 +50,15 @@ public class GameWindow extends JFrame {
                 //System.out.println("keyReleased");
             }
         });
+    }
 
-
+    private void windowEvent() {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 System.exit(1);
             }
         });
-
-        this.setVisible(true);
     }
 
 
@@ -56,7 +66,7 @@ public class GameWindow extends JFrame {
         while (true) {
             long currentTime = System.nanoTime();
             if (currentTime - this.lastTime >= 17_000_000) {
-                this.gameCanvas.positionXStar -= 3;
+                this.gameCanvas.runAll();
                 this.gameCanvas.renderAll();
                 this.lastTime = currentTime;
             }
