@@ -4,19 +4,24 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class GameCanvas extends JPanel {
 
-    BufferedImage starImage;
+
     BufferedImage enemyImage;
     BufferedImage playerImage;
 
-    //BackBuffered
     BufferedImage backBuffered;
     Graphics graphics;
 
-    public int positionXStar = 1024;
-    int positionYStar = 200;
+    int countStar = 0;
+
+    List<Star> stars;
+
+    private Random random = new Random();
 
     public int positionXPlayer = 512;
     public int positionYPlayer = 300;
@@ -44,7 +49,7 @@ public class GameCanvas extends JPanel {
     }
 
     private void setupCharacter() {
-        this.starImage = this.loadImage("resources/images/star.png");
+        this.stars = new ArrayList<>();
         this.enemyImage = this.loadImage("resources/images/circle.png");
         this.playerImage = this.loadImage("resources/images/circle.png");
     }
@@ -58,7 +63,7 @@ public class GameCanvas extends JPanel {
         this.graphics.setColor(Color.BLACK);
         this.graphics.fillRect(0, 0, 1024, 600);
 
-        this.graphics.drawImage(this.starImage, this.positionXStar, this.positionYStar, 5, 5, null);
+        this.stars.forEach(star -> star.render(graphics));
 
         this.graphics.drawImage(this.enemyImage, this.positionXEnemy, this.positionYEnemy, 20, 20, null);
 
@@ -68,8 +73,28 @@ public class GameCanvas extends JPanel {
     }
 
     public void runAll() {
-        this.positionXStar -= 3;
+        this.createStar();
+        this.stars.forEach(star -> star.run());
         this.runEnemy();
+    }
+
+    private void createStar() {
+        if (this.countStar == 30) {
+            Star star = new Star(
+                    1024,
+                    this.random.nextInt(600),
+                    this.loadImage("resources/images/star.png"),
+                    -this.random.nextInt(3) + 1,
+                    0
+            );
+
+            this.stars.add(star);
+            this.countStar = 0;
+        } else {
+            this.countStar += 1;
+        }
+
+
     }
 
     private void runEnemy() {
