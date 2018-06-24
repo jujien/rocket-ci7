@@ -10,10 +10,6 @@ import java.util.Random;
 
 public class GameCanvas extends JPanel {
 
-
-    BufferedImage enemyImage;
-    BufferedImage playerImage;
-
     BufferedImage backBuffered;
     Graphics graphics;
 
@@ -23,16 +19,10 @@ public class GameCanvas extends JPanel {
 
     Background background;
 
+    public Player player = new Player();
+    public Enemy enemy = new Enemy();
+
     private Random random = new Random();
-
-    public int positionXPlayer = 512;
-    public int positionYPlayer = 300;
-
-    public int positionXEnemy = 100;
-    public int positionYEnemy = 200;
-
-    public int speedXEnemy = 2;
-    public int speedYEnemy = 2;
 
 
     public GameCanvas() {
@@ -53,8 +43,18 @@ public class GameCanvas extends JPanel {
     private void setupCharacter() {
         this.background = new Background();
         this.stars = new ArrayList<>();
-        this.enemyImage = this.loadImage("resources/images/circle.png");
-        this.playerImage = this.loadImage("resources/images/circle.png");
+        this.setupPlayer();
+        this.setupEnemy();
+    }
+
+    private void setupPlayer() {
+        this.player.position.set(100, 200);
+        this.player.image = this.loadImage("resources/images/circle.png");
+    }
+
+    private void setupEnemy() {
+        this.enemy.position.set(800, 400);
+        this.enemy.image = this.loadImage("resources/images/circle.png");
     }
 
     @Override
@@ -64,12 +64,9 @@ public class GameCanvas extends JPanel {
 
     public void renderAll() {
         this.background.render(this.graphics);
-
         this.stars.forEach(star -> star.render(graphics));
-
-        this.graphics.drawImage(this.enemyImage, this.positionXEnemy, this.positionYEnemy, 20, 20, null);
-
-        this.graphics.drawImage(this.playerImage, this.positionXPlayer, this.positionYPlayer, 20, 20, null);
+        this.player.render(this.graphics);
+        this.enemy.render(this.graphics);
 
         this.repaint();
     }
@@ -95,19 +92,15 @@ public class GameCanvas extends JPanel {
         } else {
             this.countStar += 1;
         }
-
-
     }
 
     private void runEnemy() {
-        this.positionXEnemy += this.speedXEnemy;
-        this.positionYEnemy += this.speedYEnemy;
-
-        if (this.positionXEnemy < 0 || this.positionXEnemy > 1024 - 20)
-            this.speedXEnemy = -this.speedXEnemy;
-
-        if (this.positionYEnemy < 0 || this.positionYEnemy > 600 - 20)
-            this.speedYEnemy = -this.speedYEnemy;
+        Vector2D velocity = this.player.position
+                .subtract(this.enemy.position)
+                .normalize()
+                .multiply(1.5f);
+        this.enemy.velocity.set(velocity);
+        this.enemy.run();
     }
 
     private BufferedImage loadImage(String path) {

@@ -3,30 +3,20 @@ import java.awt.image.BufferedImage;
 
 public class Enemy {
 
-    public int x;
-    public int y;
+    public Vector2D position;
     public BufferedImage image;
-    public int velocityX;
-    public int velocityY;
-
-    public Enemy(int x, int y, BufferedImage image, int velocityX, int velocityY) {
-        this.x = x;
-        this.y = y;
-        this.image = image;
-        this.velocityX = velocityX;
-        this.velocityY = velocityY;
-    }
+    public Vector2D velocity;
 
     public Enemy() {
-
+        this.position = new Vector2D();
+        this.velocity = new Vector2D();
     }
 
     public void run() {
-        this.x += this.velocityX;
-        this.y += this.velocityY;
+        this.position.addUp(this.velocity);
     }
 
     public void render(Graphics graphics) {
-        graphics.drawImage(this.image, this.x, this.y, 5, 5, null);
+        graphics.drawImage(this.image, (int)this.position.x, (int)this.position.y, 20, 20, null);
     }
 }
