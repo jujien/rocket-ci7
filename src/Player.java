@@ -1,15 +1,40 @@
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Player {
     public Vector2D position;
-    public BufferedImage image;
+    private List<Vector2D> vertices;
+    private Polygon polygon;
+
 
     public Player() {
         this.position = new Vector2D();
+        this.vertices = Arrays.asList(
+            new Vector2D(),
+            new Vector2D(0, 16),
+            new Vector2D(20, 8)
+        );
+        this.polygon = new Polygon();
     }
 
     public void render(Graphics graphics) {
-        graphics.drawImage(this.image, (int)this.position.x, (int)this.position.y, 20, 20, null);
+        this.polygon.reset();
+
+        Vector2D center = this.vertices
+                .stream()
+                .reduce(new Vector2D(), (v1, v2) -> v1.add(v2))
+                .multiply(1 / this.vertices.size());
+
+        Vector2D translation = this.position.subtract(center);
+
+        this.vertices
+                .stream()
+                .map(vertex -> vertex.add(translation))
+                .forEach(vertex -> polygon.addPoint((int)vertex.x, (int)vertex.y));
+
+        graphics.setColor(Color.RED);
+        graphics.fillPolygon(this.polygon);
     }
 }

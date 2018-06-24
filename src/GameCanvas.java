@@ -49,7 +49,6 @@ public class GameCanvas extends JPanel {
 
     private void setupPlayer() {
         this.player.position.set(100, 200);
-        this.player.image = this.loadImage("resources/images/circle.png");
     }
 
     private void setupEnemy() {
