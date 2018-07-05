@@ -17,21 +17,29 @@ public class Enemy extends GameObject {
     @Override
     public void run() {
         super.run();
-        this.position.addUp(this.velocity);
-        if (this.count == 30) {
-            for (double angle = 0.0; angle < 360.0; angle += 360.0 / 10.0) {
-                BulletEnemy bulletEnemy = new BulletEnemy();
-                bulletEnemy.position.set(this.position);
-                bulletEnemy.velocity.set(
-                        (new Vector2D(3.0f, 0.0f)).rotate(angle)
-                );
-                this.bulletEnemies.add(bulletEnemy);
-            }
-            this.count = 0;
-        } else {
-            this.count += 1;
-        }
 
+//        if (this.count == 30) {
+//            for (double angle = 0.0; angle < 360.0; angle += 360.0 / 10.0) {
+//                BulletEnemy bulletEnemy = new BulletEnemy();
+//                bulletEnemy.position.set(this.position);
+//                bulletEnemy.velocity.set(
+//                        (new Vector2D(3.0f, 0.0f)).rotate(angle)
+//                );
+//                this.bulletEnemies.add(bulletEnemy);
+//            }
+//            this.count = 0;
+//        } else {
+//            this.count += 1;
+//        }
+        Player player = GameObjectManager.instance.findPlayer();
+        if (player != null) {
+            Vector2D velocity = player.position
+                    .subtract(this.position)
+                    .normalize()
+                    .multiply(1.5f);
+            this.velocity.set(velocity);
+        }
+        this.position.addUp(this.velocity);
         this.bulletEnemies.forEach(bulletEnemy -> bulletEnemy.run());
 
     }

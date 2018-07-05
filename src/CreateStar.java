@@ -18,7 +18,6 @@ public class CreateStar extends GameObject {
             star.position.set(1024, this.random.nextInt(600));
             star.velocity.set(-(this.random.nextInt(3) + 1), 0);
             GameObjectManager.instance.add(star);
-
             this.frameCounter.reset();
         }
     }

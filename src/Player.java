@@ -38,12 +38,4 @@ public class Player extends GameObject {
 
         if (this.position.y > 600) this.position.set(this.random.nextInt(1024), 0);
     }
-
-    @Override
-    public void render(Graphics graphics) {
-        super.render(graphics);
-        ((PlayerShoot) this.playerAttack)
-                .bulletPlayers
-                .forEach(bulletPlayer -> bulletPlayer.render(graphics));
-    }
 }
