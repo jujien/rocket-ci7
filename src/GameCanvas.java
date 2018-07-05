@@ -1,25 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class GameCanvas extends JPanel {
 
     BufferedImage backBuffered;
     Graphics graphics;
-
-    int countStar = 0;
-
-    List<Star> stars;
-
     Background background;
 
     public Player player = new Player();
     public Enemy enemy = new Enemy();
-
-    private Random random = new Random();
+    private CreateStar createStar = new CreateStar();
 
 
     public GameCanvas() {
@@ -39,7 +31,6 @@ public class GameCanvas extends JPanel {
 
     private void setupCharacter() {
         this.background = new Background();
-        this.stars = new ArrayList<>();
         this.setupPlayer();
         this.setupEnemy();
     }
@@ -59,30 +50,16 @@ public class GameCanvas extends JPanel {
 
     public void renderAll() {
         this.background.render(this.graphics);
-        this.stars.forEach(star -> star.render(graphics));
         this.player.render(this.graphics);
         this.enemy.render(this.graphics);
-
+        this.createStar.render(this.graphics);
         this.repaint();
     }
 
     public void runAll() {
-        this.createStar();
-        this.stars.forEach(star -> star.run());
         this.runEnemy();
         this.player.run();
-    }
-
-    private void createStar() {
-        if (this.countStar == 30) {
-            Star star = new Star();
-            star.position.set(1024, this.random.nextInt(600));
-            star.velocity.set(-(this.random.nextInt(3) + 1), 0);
-            this.stars.add(star);
-            this.countStar = 0;
-        } else {
-            this.countStar += 1;
-        }
+        this.createStar.run();
     }
 
     private void runEnemy() {
