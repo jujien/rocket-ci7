@@ -1,20 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 public class GameCanvas extends JPanel {
 
     BufferedImage backBuffered;
     Graphics graphics;
-    Background background;
 
     public Player player = new Player();
-    public Enemy enemy = new Enemy();
-    private CreateStar createStar = new CreateStar();
-
 
     public GameCanvas() {
+
         this.setSize(1024, 600);
 
         this.setupBackBuffered();
@@ -30,17 +26,16 @@ public class GameCanvas extends JPanel {
     }
 
     private void setupCharacter() {
-        this.background = new Background();
+        GameObjectManager.instance.add(new Background());
+        GameObjectManager.instance.add(new CreateStar());
         this.setupPlayer();
-        this.setupEnemy();
+
     }
 
     private void setupPlayer() {
-        this.player.position.set(100, 200);
-    }
-
-    private void setupEnemy() {
-        this.enemy.position.set(800, 400);
+        Player player = new Player();
+        player.position.set(100, 200);
+        GameObjectManager.instance.add(player);
     }
 
     @Override
@@ -49,25 +44,20 @@ public class GameCanvas extends JPanel {
     }
 
     public void renderAll() {
-        this.background.render(this.graphics);
-        this.player.render(this.graphics);
-        this.enemy.render(this.graphics);
-        this.createStar.render(this.graphics);
+        GameObjectManager.instance.renderAll(this.graphics);
         this.repaint();
     }
 
     public void runAll() {
-        this.runEnemy();
-        this.player.run();
-        this.createStar.run();
+        GameObjectManager.instance.runAll();
     }
 
     private void runEnemy() {
-        Vector2D velocity = this.player.position
-                .subtract(this.enemy.position)
-                .normalize()
-                .multiply(1.5f);
-        this.enemy.velocity.set(velocity);
-        this.enemy.run();
+//        Vector2D velocity = this.player.position
+//                .subtract(this.enemy.position)
+//                .normalize()
+//                .multiply(1.5f);
+//        this.enemy.velocity.set(velocity);
+//        this.enemy.run();
     }
 }
