@@ -1,23 +1,22 @@
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Enemy {
+public class Enemy extends GameObject {
 
-    public Vector2D position;
-    public BufferedImage image;
     public Vector2D velocity;
     private List<BulletEnemy> bulletEnemies;
     private int count = 0;
 
     public Enemy() {
-        this.position = new Vector2D();
         this.velocity = new Vector2D();
         this.bulletEnemies = new ArrayList<>();
+        this.renderer = new ImageRenderer("resources/images/circle.png", 20, 20);
     }
 
+    @Override
     public void run() {
+        super.run();
         this.position.addUp(this.velocity);
         if (this.count == 30) {
             for (double angle = 0.0; angle < 360.0; angle += 360.0 / 10.0) {
@@ -37,8 +36,9 @@ public class Enemy {
 
     }
 
+    @Override
     public void render(Graphics graphics) {
-        graphics.drawImage(this.image, (int)this.position.x, (int)this.position.y, 20, 20, null);
+        super.render(graphics);
         this.bulletEnemies.forEach(bulletEnemy -> bulletEnemy.render(graphics));
     }
 }

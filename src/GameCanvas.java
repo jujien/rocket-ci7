@@ -1,9 +1,6 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -53,7 +50,6 @@ public class GameCanvas extends JPanel {
 
     private void setupEnemy() {
         this.enemy.position.set(800, 400);
-        this.enemy.image = this.loadImage("resources/images/circle.png");
     }
 
     @Override
@@ -81,7 +77,7 @@ public class GameCanvas extends JPanel {
         if (this.countStar == 30) {
             Star star = new Star();
             star.position.set(1024, this.random.nextInt(600));
-            star.velocity.set(-this.random.nextInt(3) + 1, 0);
+            star.velocity.set(-(this.random.nextInt(3) + 1), 0);
             this.stars.add(star);
             this.countStar = 0;
         } else {
@@ -96,13 +92,5 @@ public class GameCanvas extends JPanel {
                 .multiply(1.5f);
         this.enemy.velocity.set(velocity);
         this.enemy.run();
-    }
-
-    private BufferedImage loadImage(String path) {
-        try {
-            return ImageIO.read(new File(path));
-        } catch (IOException e) {
-            return null;
-        }
     }
 }
