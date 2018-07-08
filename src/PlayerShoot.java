@@ -9,7 +9,6 @@ public class PlayerShoot implements GameObjectAttributes<Player> {
 
     @Override
     public void run(Player gameObject) {
-
         if (this.frameCounter.run()) {
             BulletPlayer bulletPlayer = new BulletPlayer();
             bulletPlayer.position.set(gameObject.position);

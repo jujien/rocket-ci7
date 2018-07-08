@@ -1,11 +1,10 @@
 import java.awt.*;
-import java.util.Random;
 
 public class Player extends GameObject {
 
-    public Vector2D velocity;
     public double angle = 0.0;
-    private Random random = new Random();
+    public Vector2D velocity;
+
 
     public Player() {
         this.renderer = new PolygonRenderer(
@@ -16,23 +15,12 @@ public class Player extends GameObject {
         );
         this.velocity = new Vector2D(3.5f, 0);
         this.attributes.add(new PlayerShoot());
+        this.attributes.add(new PlayerMove());
     }
 
     @Override
     public void run() {
         super.run();
-        this.position.addUp(this.velocity);
         ((PolygonRenderer) this.renderer).angle = this.angle;
-        this.backtoScreen();
-    }
-
-    private void backtoScreen() {
-        if (this.position.x < 0) this.position.set(1024, this.random.nextInt(600));
-
-        if (this.position.x > 1024) this.position.set(0, this.random.nextInt(600));
-
-        if (this.position.y < 0) this.position.set(this.random.nextInt(1024), 600);
-
-        if (this.position.y > 600) this.position.set(this.random.nextInt(1024), 0);
     }
 }
