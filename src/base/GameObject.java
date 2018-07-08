@@ -11,6 +11,7 @@ public class GameObject {
     public Vector2D position;
     public Renderer renderer;
     public List<GameObjectAttributes> attributes;
+    public boolean isAlive = true;
 
     public GameObject() {
         this.position = new Vector2D();

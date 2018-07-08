@@ -1,5 +1,7 @@
+import base.GameObject;
 import base.GameObjectManager;
 import game.background.Background;
+import game.enemy.Enemy;
 import game.star.CreateStar;
 import game.player.Player;
 
@@ -33,6 +35,7 @@ public class GameCanvas extends JPanel {
     private void setupCharacter() {
         GameObjectManager.instance.add(new Background());
         GameObjectManager.instance.add(new CreateStar());
+        GameObjectManager.instance.add(new Enemy());
         this.setupPlayer();
 
     }
