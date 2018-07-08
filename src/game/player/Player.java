@@ -1,3 +1,9 @@
+package game.player;
+
+import base.GameObject;
+import base.Vector2D;
+import renderer.PolygonRenderer;
+
 import java.awt.*;
 
 public class Player extends GameObject {

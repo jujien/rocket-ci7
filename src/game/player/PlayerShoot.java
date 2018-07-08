@@ -1,3 +1,9 @@
+package game.player;
+
+import base.FrameCounter;
+import base.GameObjectAttributes;
+import base.GameObjectManager;
+
 public class PlayerShoot implements GameObjectAttributes<Player> {
 
     private FrameCounter frameCounter;

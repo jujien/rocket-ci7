@@ -1,3 +1,10 @@
+package game.player;
+
+import base.GameObject;
+import base.GameObjectAttributes;
+import base.Vector2D;
+import input.KeyboardInput;
+
 import java.util.Random;
 
 public class PlayerMove implements GameObjectAttributes<Player> {

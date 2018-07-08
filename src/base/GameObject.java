@@ -1,3 +1,7 @@
+package base;
+
+import renderer.Renderer;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
+import input.KeyboardInput;
+
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -44,7 +44,7 @@ public class GameWindow extends JFrame {
 //                }
 //
 //                gameCanvas.player.velocity.set(
-//                        (new Vector2D(3.5f, 0.0f)).rotate(gameCanvas.player.angle)
+//                        (new base.Vector2D(3.5f, 0.0f)).rotate(gameCanvas.player.angle)
 //                );
 //
 //            }

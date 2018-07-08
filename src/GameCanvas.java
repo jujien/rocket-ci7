@@ -1,3 +1,8 @@
+import base.GameObjectManager;
+import game.background.Background;
+import game.star.CreateStar;
+import game.player.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -53,7 +58,7 @@ public class GameCanvas extends JPanel {
     }
 
     private void runEnemy() {
-//        Vector2D velocity = this.player.position
+//        base.Vector2D velocity = this.player.position
 //                .subtract(this.enemy.position)
 //                .normalize()
 //                .multiply(1.5f);
