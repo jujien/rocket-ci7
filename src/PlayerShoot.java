@@ -1,4 +1,4 @@
-public class PlayerShoot implements PlayerAttack {
+public class PlayerShoot implements GameObjectAttributes<Player> {
 
     private FrameCounter frameCounter;
 
@@ -8,11 +8,12 @@ public class PlayerShoot implements PlayerAttack {
     }
 
     @Override
-    public void run(Player player) {
+    public void run(Player gameObject) {
+
         if (this.frameCounter.run()) {
             BulletPlayer bulletPlayer = new BulletPlayer();
-            bulletPlayer.position.set(player.position);
-            bulletPlayer.velocity.set(player.velocity.copy().multiply(1.5f));
+            bulletPlayer.position.set(gameObject.position);
+            bulletPlayer.velocity.set(gameObject.velocity.copy().multiply(1.5f));
             GameObjectManager.instance.add(bulletPlayer);
             this.frameCounter.reset();
         }

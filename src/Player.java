@@ -5,11 +5,9 @@ public class Player extends GameObject {
 
     public Vector2D velocity;
     public double angle = 0.0;
-    public PlayerAttack playerAttack;
     private Random random = new Random();
 
     public Player() {
-        this.position = new Vector2D();
         this.renderer = new PolygonRenderer(
                 Color.RED,
                 new Vector2D(),
@@ -17,7 +15,7 @@ public class Player extends GameObject {
                 new Vector2D(20, 8)
         );
         this.velocity = new Vector2D(3.5f, 0);
-        this.playerAttack = new PlayerShoot();
+        this.attributes.add(new PlayerShoot());
     }
 
     @Override
@@ -25,7 +23,6 @@ public class Player extends GameObject {
         super.run();
         this.position.addUp(this.velocity);
         ((PolygonRenderer) this.renderer).angle = this.angle;
-        this.playerAttack.run(this);
         this.backtoScreen();
     }
 
