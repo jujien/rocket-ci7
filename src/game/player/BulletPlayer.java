@@ -5,9 +5,10 @@ import base.GameObjectManager;
 import base.Vector2D;
 import game.enemy.Enemy;
 import physic.BoxCollider;
+import physic.PhysicBody;
 import renderer.ImageRenderer;
 
-public class BulletPlayer extends GameObject {
+public class BulletPlayer extends GameObject implements PhysicBody {
 
     public Vector2D velocity;
     public BoxCollider boxCollider;
@@ -23,11 +24,15 @@ public class BulletPlayer extends GameObject {
         super.run();
         this.position.addUp(this.velocity);
         this.boxCollider.position.set(this.position.x - 4, this.position.y - 4);
-        Enemy enemy = GameObjectManager.instance.checkCollision(this);
+        Enemy enemy = GameObjectManager.instance.checkCollision(this.boxCollider, Enemy.class);
         if (enemy != null) {
             enemy.isAlive = false;
             this.isAlive = false;
         }
     }
 
+    @Override
+    public BoxCollider getBoxCollider() {
+        return this.boxCollider;
+    }
 }

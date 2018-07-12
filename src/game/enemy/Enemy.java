@@ -5,13 +5,14 @@ import base.GameObjectManager;
 import base.Vector2D;
 import game.player.Player;
 import physic.BoxCollider;
+import physic.PhysicBody;
 import renderer.ImageRenderer;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Enemy extends GameObject {
+public class Enemy extends GameObject implements PhysicBody {
 
     public Vector2D velocity;
     private List<BulletEnemy> bulletEnemies;
@@ -60,5 +61,10 @@ public class Enemy extends GameObject {
     public void render(Graphics graphics) {
         super.render(graphics);
         this.bulletEnemies.forEach(bulletEnemy -> bulletEnemy.render(graphics));
+    }
+
+    @Override
+    public BoxCollider getBoxCollider() {
+        return this.boxCollider;
     }
 }
