@@ -64,6 +64,11 @@ public class Enemy extends GameObject implements PhysicBody {
     }
 
     @Override
+    public void getHit(GameObject gameObject) {
+        this.isAlive = false;
+    }
+
+    @Override
     public BoxCollider getBoxCollider() {
         return this.boxCollider;
     }

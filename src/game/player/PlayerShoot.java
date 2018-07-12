@@ -17,14 +17,14 @@ public class PlayerShoot implements GameObjectAttributes<Player> {
 
     @Override
     public void run(Player gameObject) {
-        if (KeyboardInput.instance.isSpace)
-            switch (this.shootState) {
-                case single:
-
-                    break;
-                case triple:
-                    break;
-            }
+//        if (KeyboardInput.instance.isSpace)
+//            switch (this.shootState) {
+//                case single:
+//
+//                    break;
+//                case triple:
+//                    break;
+//            }
             if (this.frameCounter.run()) {
                 BulletPlayer bulletPlayer = new BulletPlayer();
                 bulletPlayer.position.set(gameObject.position);
