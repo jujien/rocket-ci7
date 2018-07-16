@@ -31,8 +31,25 @@ public class CreateEnemy extends GameObject {
 //        this.addAction(repeatActionForever);
 
         // cach 2:
+//        this.addAction(
+//                new RepeatActionForever(
+//                        new SequenceAction(
+//                                new WaitAction(40),
+//                                new ActionAdapter() {
+//                                    @Override
+//                                    public boolean run(GameObject owner) {
+//                                        Enemy enemy = GameObjectManager.instance.recycle(Enemy.class);
+//                                        enemy.position.set(random.nextInt(1024), random.nextInt(600));
+//                                        return true;
+//                                    }
+//                                }
+//                        )
+//                )
+//        );
+
         this.addAction(
-                new RepeatActionForever(
+                new LimitAction(
+                        10,
                         new SequenceAction(
                                 new WaitAction(40),
                                 new ActionAdapter() {

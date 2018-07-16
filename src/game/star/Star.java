@@ -17,6 +17,8 @@ public class Star extends GameObject {
     public void run() {
         super.run();
         this.position.addUp(this.velocity);
-
+        if (this.position.x <= 0) {
+            this.isAlive = false;
+        }
     }
 }
