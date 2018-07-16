@@ -49,19 +49,26 @@ public class GameObjectManager {
                 .orElse(null);
     }
 
-    //Generic
-
-    public Enemy checkCollision(BulletPlayer bulletPlayer) {
-        return (Enemy) this.list
+    public <T extends GameObject> T recycle(Class<T> cls) {
+        T gameObject = (T) this.list
                 .stream()
-                .filter(gameObject -> gameObject.isAlive)
-                .filter(gameObject -> gameObject instanceof Enemy)
-                .filter(gameObject -> {
-                    BoxCollider other = ((Enemy) gameObject).boxCollider;
-                    return bulletPlayer.boxCollider.checkCollision(other);
-                })
+                .filter(object -> cls.isInstance(object))
+                .filter(object -> !object.isAlive)
                 .findFirst()
                 .orElse(null);
+        if (gameObject != null) {
+            gameObject.isAlive = true;
+            return gameObject;
+        } else {
+            try {
+                gameObject = cls.newInstance();
+                this.add(gameObject);
+                return gameObject;
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
     }
 
     public <T extends GameObject & PhysicBody> T checkCollision(BoxCollider boxCollider, Class<T> cls) {
