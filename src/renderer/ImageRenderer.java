@@ -11,8 +11,8 @@ import java.io.IOException;
 public class ImageRenderer implements Renderer {
 
     private BufferedImage image;
-    private int width;
-    private int height;
+    public int width;
+    public int height;
 
     public ImageRenderer(String path, int width, int height) {
         this.image = this.loadImage(path);
