@@ -1,6 +1,7 @@
 package scene;
 
 import base.GameObjectManager;
+import game.Demo;
 import game.background.Background;
 import game.enemy.CreateEnemy;
 import game.player.Player;
@@ -36,6 +37,9 @@ public class GamePlayScene implements Scene {
         CreateEnemy createEnemy = GameObjectManager.instance.recycle(CreateEnemy.class);
         createEnemy.configAction();
         this.setupPlayer();
+
+        Demo demo = GameObjectManager.instance.recycle(Demo.class);
+        demo.position.set(512, 300);
 
     }
 
