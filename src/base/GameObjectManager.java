@@ -83,4 +83,9 @@ public class GameObjectManager {
                 .findFirst()
                 .orElse(null);
     }
+
+    public void clear() {
+        this.list.clear();
+        this.tempList.clear();
+    }
 }

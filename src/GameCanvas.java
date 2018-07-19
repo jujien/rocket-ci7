@@ -5,6 +5,8 @@ import game.enemy.CreateEnemy;
 import game.enemy.Enemy;
 import game.star.CreateStar;
 import game.player.Player;
+import scene.GamePlayScene;
+import scene.SceneManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,40 +17,20 @@ public class GameCanvas extends JPanel {
     BufferedImage backBuffered;
     Graphics graphics;
 
-    public Player player = new Player();
-
     public GameCanvas() {
 
         this.setSize(1024, 600);
 
         this.setupBackBuffered();
 
-        this.setupCharacter();
-
         this.setVisible(true);
+
+        SceneManager.instance.changeScene(new GamePlayScene());
     }
 
     private void setupBackBuffered() {
         this.backBuffered = new BufferedImage(1024, 600, BufferedImage.TYPE_4BYTE_ABGR);
         this.graphics = this.backBuffered.getGraphics();
-    }
-
-    private void setupCharacter() {
-        GameObjectManager.instance.add(new Background());
-        //GameObjectManager.instance.add(new CreateStar());
-        CreateStar createStar = GameObjectManager.instance.recycle(CreateStar.class);
-        createStar.configAction();
-        //GameObjectManager.instance.add(new Enemy());
-        CreateEnemy createEnemy = GameObjectManager.instance.recycle(CreateEnemy.class);
-        createEnemy.configAction();
-        this.setupPlayer();
-
-    }
-
-    private void setupPlayer() {
-        Player player = new Player();
-        player.position.set(100, 200);
-        GameObjectManager.instance.add(player);
     }
 
     @Override
@@ -63,14 +45,7 @@ public class GameCanvas extends JPanel {
 
     public void runAll() {
         GameObjectManager.instance.runAll();
+        SceneManager.instance.performChangeSceneIfNeeded();
     }
 
-    private void runEnemy() {
-//        base.Vector2D velocity = this.player.position
-//                .subtract(this.enemy.position)
-//                .normalize()
-//                .multiply(1.5f);
-//        this.enemy.velocity.set(velocity);
-//        this.enemy.run();
-    }
 }
